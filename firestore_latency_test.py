@@ -26,8 +26,8 @@ def perf_test():
     n += 1
     with t:
       transactional_get(transaction, city_ref)
-  print('type,avg,p99')
-  print(f'transactional,{t.elapsed / limit},{np.percentile(t.stages, 99)}')
+  print('method,type,avg(ms),p99(ms)')
+  print(f'get,transactional,{round(t.elapsed / limit * 1000)},{round(np.percentile(t.stages, 99) * 1000)}')
 
   t2 = timer.Timer()
   n = 0
@@ -35,7 +35,7 @@ def perf_test():
     n += 1
     with t2:
       plain_get(city_ref)
-  print(f'nontransactional,{t2.elapsed / limit},{np.percentile(t2.stages, 99)}')
+  print(f'get,nontransactional,{round(t2.elapsed / limit * 1000)},{round(np.percentile(t2.stages, 99) * 1000)}')
 
 perf_test()
 
